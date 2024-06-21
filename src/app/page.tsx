@@ -15,23 +15,32 @@ async function Home() {
   const data = await request("https://dummyjson.com/products");
   console.log(data);
   return (
-    <div>
-      <h3 className="text-2xl font-semibold text-center">Products list</h3>
-      <p className="text-center text-md mb-6">You can click on the name of any product and see more information about it! 👌</p>
-      <h1 className="text-xl">
-        {data.products.map((item: any) => {
-          return (
-            <>
-              <Link className="flex ml-6 items-center gap-3" href={`/product/${item.id}`}>
-                <p className="">{item.id}</p>
-                <h1>{item.title}</h1>
-              </Link>
-            </>
-          )
-        })}
-      </h1>
+    <div className="flex flex-wrap w-4/5 mx-auto justify-between mt-9">
+      {data.products.map((item: any) => {
+        return (
+          <>
+            <div className="card w-96 bg-base-100 shadow-xl mb-5">
+              <figure>
+                <img src={item.thumbnail} alt="Shoes" />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{item.title}</h2>
+                <p>{item.description}</p>
+                <div className="card-actions justify-end">
+                  <Link
+                    href={`/product/${item.id}`}
+                    className="btn btn-primary"
+                  >
+                    Learn more
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      })}
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
